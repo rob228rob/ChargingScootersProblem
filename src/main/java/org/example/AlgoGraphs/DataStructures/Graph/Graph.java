@@ -1,6 +1,7 @@
-package org.example.DataStructures.graph;
+package org.example.AlgoGraphs.DataStructures.Graph;
 
-import org.example.DataStructures.node.node.Node;
+import org.example.AlgoGraphs.DataStructures.Graph.GraphBuilder.GraphBuilder;
+import org.example.AlgoGraphs.DataStructures.Node.Node.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +36,23 @@ public class Graph {
 
     public void setNodeList(List<Node> nodeList) {
         this.nodeList = nodeList;
+    }
+
+    public void removeNode(Node node) {
+        nodeList.remove(node);
+
+        for (Node n : nodeList) {
+            n.getEdges().remove(node);
+        }
+    }
+
+    static public GraphBuilder builder(List<Node> nodes)
+    {
+        return new GraphBuilder(nodes);
+    }
+
+    static public GraphBuilder builder()
+    {
+        return new GraphBuilder();
     }
 }

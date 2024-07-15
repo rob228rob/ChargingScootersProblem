@@ -1,4 +1,4 @@
-package org.example.DataStructures.node.node;
+package org.example.AlgoGraphs.DataStructures.Node.Node;
 
 import lombok.*;
 
@@ -26,6 +26,11 @@ public abstract class Node {
         this.longitude = longitude;
     }
 
+    public Node(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public void addEdge(Node edge) {
         edges.add(edge);
     }
@@ -48,7 +53,7 @@ public abstract class Node {
         return earth_radius_km * coefficientC;
     }
 
-    double distanceTo(@NonNull Node other) {
+    public double distanceTo(@NonNull Node other) {
         return haversine(latitude, longitude, other.getLatitude(), other.getLongitude());
     }
 
@@ -76,6 +81,10 @@ public abstract class Node {
         throw new UnsupportedOperationException("Previous node is not supported for this: " + this.getClass().getSimpleName());
     }
 
+    public String getTypename()
+    {
+        return "default_node";
+    }
 
     @Override
     public String toString() {

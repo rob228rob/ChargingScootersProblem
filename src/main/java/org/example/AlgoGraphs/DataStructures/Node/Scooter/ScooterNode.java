@@ -1,7 +1,7 @@
-package org.example.DataStructures.node.scooter;
+package org.example.AlgoGraphs.DataStructures.Node.Scooter;
 
 import lombok.*;
-import org.example.DataStructures.node.node.Node;
+import org.example.AlgoGraphs.DataStructures.Node.Node.Node;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +28,8 @@ public class ScooterNode extends Node {
         this.chargeLevel = chargeLevel;
     }
 
+    @Override
+    public String getTypename() {
+        return "ScooterNode";
+    }
 }

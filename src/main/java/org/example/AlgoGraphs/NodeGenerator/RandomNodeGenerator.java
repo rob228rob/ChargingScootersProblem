@@ -1,9 +1,8 @@
-package org.example.NodeGenerator;
+package org.example.AlgoGraphs.NodeGenerator;
 
-import lombok.AllArgsConstructor;
-import org.example.DataStructures.node.node.Node;
-import org.example.DataStructures.node.scooter.ScooterNode;
-import org.example.DataStructures.node.station.StationNode;
+import org.example.AlgoGraphs.DataStructures.Node.Node.Node;
+import org.example.AlgoGraphs.DataStructures.Node.Scooter.ScooterNode;
+import org.example.AlgoGraphs.DataStructures.Node.Station.StationNode;
 
 import java.util.ArrayList;
 import java.util.List;

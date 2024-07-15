@@ -1,6 +1,6 @@
-package org.example.NodeGenerator;
+package org.example.AlgoGraphs.NodeGenerator;
 
-import org.example.DataStructures.node.node.Node;
+import org.example.AlgoGraphs.DataStructures.Node.Node.Node;
 
 import java.util.List;
 
