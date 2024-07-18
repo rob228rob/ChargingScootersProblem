@@ -2,7 +2,6 @@ package com.example.ScooterController;
 
 import com.example.ScooterDTO.ScooterDTO;
 import lombok.RequiredArgsConstructor;
-import com.example.ScooterModel.ScooterModel;
 import com.example.ScooterService.ScooterService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/scooters")
+@RequestMapping("/api/v1/scooters")
 @RequiredArgsConstructor
 public class ScooterController {
 
@@ -27,10 +26,35 @@ public class ScooterController {
         return ResponseEntity.ok(allScooters);
     }
 
+    @GetMapping
+    @RequestMapping("/get/{id}")
+    public ResponseEntity<ScooterDTO> getScooter(@PathVariable long id) {
+        scooterService.getScooterById(id);
+
+        return ResponseEntity.ok(scooterService.getScooterById(id));
+    }
+
     @PostMapping
     @RequestMapping("/add")
     public ResponseEntity<ScooterDTO> addScooter(@RequestBody ScooterDTO scooterDTO) {
         scooterService.addScooter(scooterDTO);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    @RequestMapping("/update")
+    public ResponseEntity<ScooterDTO> updateScooter(@RequestBody ScooterDTO scooterDTO) {
+        scooterService.updateScooter(scooterDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/delete")
+    public ResponseEntity<ScooterDTO> deleteScooter(@RequestBody ScooterDTO scooterDTO) {
+        scooterService.deleteScooter(scooterDTO);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

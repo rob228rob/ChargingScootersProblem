@@ -2,7 +2,6 @@ package com.example.ScooterService;
 
 import lombok.RequiredArgsConstructor;
 import com.example.ScooterDTO.ScooterDTO;
-import com.example.ScooterModel.ScooterModel;
 import com.example.ScootersRepository.ScooterEntity;
 import com.example.ScootersRepository.ScootersRepository;
 import org.modelmapper.ModelMapper;
@@ -49,7 +48,7 @@ public class ScooterService {
     }
 
     public ScooterDTO getScooterById(long id) {
-        return mapper.map(scootersRepository.findById(id), ScooterDTO.class);
+        return mapper.map(scootersRepository.findById(id).orElse(null), ScooterDTO.class);
     }
 
     public long getRecordsCount() {
