@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +49,13 @@ public class ScooterService {
     }
 
     public ScooterDTO getScooterById(long id) {
-        return mapper.map(scootersRepository.findById(id).orElse(null), ScooterDTO.class);
+        Optional<ScooterEntity> scooterEntity = scootersRepository.findById(id);
+
+        if (scooterEntity.isPresent()) {
+            return mapper.map(scooterEntity.get(), ScooterDTO.class);
+        }
+
+        return null;
     }
 
     public long getRecordsCount() {

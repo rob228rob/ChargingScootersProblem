@@ -1,34 +1,36 @@
-create table users
+CREATE TABLE users
 (
-    id       bigserial primary key,
-    username varchar(30) not null unique,
-    password varchar(80) not null,
-    email    varchar(50) unique
+    id       BIGSERIAL PRIMARY KEY,
+    username VARCHAR(30) NOT NULL UNIQUE,
+    password VARCHAR(80) NOT NULL,
+    email    VARCHAR(50) UNIQUE
 );
 
-create table roles
+CREATE TABLE roles
 (
-    id   serial primary key,
-    name varchar(50) not null,
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE users_roles
 (
-    user_id bigint not null,
-    role_id int    not null,
-    primary key (user_id, role_id),
-    foreign key (user_id) references users (id),
-    foreign key (role_id) references roles (id)
+    user_id BIGINT NOT NULL,
+    role_id INT    NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE
 );
 
-insert into roles (name)
-values ('ROLE_USER'),
+INSERT INTO roles (name)
+VALUES ('ROLE_USER'),
        ('ROLE_ADMIN');
 
-insert into users(username, password, email)
-values ('user', '$2a$16$YPc4kkPrZWCC7/JduxX.zOUiWhQVN6Fs/qQlWdJafQolv/HXKDp3i', 'user@gmail.com'),
+INSERT INTO users (username, password, email)
+VALUES ('user', '$2a$16$YPc4kkPrZWCC7/JduxX.zOUiWhQVN6Fs/qQlWdJafQolv/HXKDp3i', 'user@gmail.com'),
        ('admin', '$2a$16$YPc4kkPrZWCC7/JduxX.zOUiWhQVN6Fs/qQlWdJafQolv/HXKDp3i', 'admin@gmail.com');
 
-insert into users_roles (user_id, role_id)
-values (1, 1),
-       (2, 2);
+INSERT INTO users_roles (user_id, role_id)
+VALUES ((SELECT id FROM users WHERE username = 'user'),
+        (SELECT id FROM roles WHERE name = 'ROLE_USER')),
+       ((SELECT id FROM users WHERE username = 'admin'),
+        (SELECT id FROM roles WHERE name = 'ROLE_ADMIN'));

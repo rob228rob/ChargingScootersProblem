@@ -29,9 +29,13 @@ public class ScooterController {
     @GetMapping
     @RequestMapping("/get/{id}")
     public ResponseEntity<ScooterDTO> getScooter(@PathVariable long id) {
-        scooterService.getScooterById(id);
+        ScooterDTO scooterById = scooterService.getScooterById(id);
+        if (scooterById == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-        return ResponseEntity.ok(scooterService.getScooterById(id));
+        return ResponseEntity.ok(scooterById);
     }
 
     @PostMapping
