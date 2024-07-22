@@ -13,7 +13,7 @@ CREATE TABLE roles
 );
 
 CREATE TABLE users_roles
-(
+(5
     user_id BIGINT NOT NULL,
     role_id INT    NOT NULL,
     PRIMARY KEY (user_id, role_id),
@@ -26,8 +26,8 @@ VALUES ('ROLE_USER'),
        ('ROLE_ADMIN');
 
 INSERT INTO users (username, password, email)
-VALUES ('user', '$2a$16$YPc4kkPrZWCC7/JduxX.zOUiWhQVN6Fs/qQlWdJafQolv/HXKDp3i', 'user@gmail.com'),
-       ('admin', '$2a$16$YPc4kkPrZWCC7/JduxX.zOUiWhQVN6Fs/qQlWdJafQolv/HXKDp3i', 'admin@gmail.com');
+VALUES ('user', 'user', 'user@gmail.com'),
+       ('admin','admin', 'admin@gmail.com');
 
 INSERT INTO users_roles (user_id, role_id)
 VALUES ((SELECT id FROM users WHERE username = 'user'),

@@ -1,8 +1,11 @@
 package com.example;
 
+import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -16,9 +19,25 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class AppConfig {
 
+    private double latUpperCorner;
+
+    private double lonUpperCorner;
+
+    private double latLowerCorner;
+
+    private double lonLowerCorner;
+
     private AreaCorner areaLowerCorner;
 
     private AreaCorner areaUpperCorner;
+
+    @PostConstruct
+    public void init()
+    {
+        System.out.println(stationsAmount + " - stations amount;\n");
+        areaLowerCorner = new AreaCorner(latLowerCorner, lonLowerCorner);
+        areaUpperCorner = new AreaCorner(latUpperCorner, lonUpperCorner);
+    }
 
     private int criticalChargeValue;
 
@@ -38,6 +57,7 @@ public class AppConfig {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class AreaCorner {
         private double lat;
         private double lon;

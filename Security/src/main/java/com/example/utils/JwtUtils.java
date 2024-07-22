@@ -40,8 +40,12 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    List<Role> getRoles(String token) {
+    public List<String> getRoles(String token) {
         return getAllClaimsFromToken(token).get("roles", List.class);
+    }
+
+    public String getUsername(String token) {
+        return getAllClaimsFromToken(token).getSubject();
     }
 
     private Claims getAllClaimsFromToken(String token) {

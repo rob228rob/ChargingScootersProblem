@@ -32,21 +32,22 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests( auth ->
-                        auth.requestMatchers("/public/**").permitAll()
-                                .requestMatchers("/secured").authenticated()
-                                .requestMatchers("/admin").hasRole("ADMIN")
-                                .anyRequest().permitAll()
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/v1/**").permitAll()
+                                .requestMatchers("/secured/**").authenticated()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/guest/**").permitAll()
+                                .requestMatchers("/auth").permitAll()
+                               .anyRequest().authenticated()
                 )
-                .sessionManagement(sessionManagment ->
-                        sessionManagment.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .formLogin(Customizer.withDefaults());
-                /* and().filterBefore()...
-                        .formLogin(Customizer.withDefaults());
-                 */
+                        exceptionHandling.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
+//                .formLogin(Customizer.withDefaults())
+//                .authenticationProvider(authenticationProvider());
 
         return http.build();
     }

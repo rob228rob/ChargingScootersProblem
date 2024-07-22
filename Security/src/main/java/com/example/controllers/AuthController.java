@@ -25,8 +25,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    @PostMapping
-    @RequestMapping("/auth")
+    @PostMapping("/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequestDTO jwtRequestDTO) {
         String username = jwtRequestDTO.getUsername();
         try {
@@ -40,7 +39,7 @@ public class AuthController {
         UserDetails userDetails = userService.loadUserByUsername(username);
         String token = jwtUtils.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponseDTO(token));
-    }
+        return new ResponseEntity<>(new JwtResponseDTO(token), HttpStatus.ACCEPTED);
+     }
 
 }
